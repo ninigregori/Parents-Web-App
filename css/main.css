@@ -48,7 +48,7 @@ background-image: url('../images/logo_RGB_colur.png') no-repeat 0 0;
   padding: 8% 0 0;
   margin: auto;
 }
-.form {
+.login-form {
   position: relative;
   z-index: 1;
   background: #FFFFFF;
@@ -57,7 +57,7 @@ background-image: url('../images/logo_RGB_colur.png') no-repeat 0 0;
   padding: 45px;
   text-align: center;
 }
-.form input {
+.login-form input {
   font-family: "Source+Sans+Pro", sans-serif;
   outline: 0;
   background: rgba(54,169,224,0.07);
@@ -68,7 +68,7 @@ background-image: url('../images/logo_RGB_colur.png') no-repeat 0 0;
   box-sizing: border-box;
   font-size: 14px;
 }
-.form button {
+.login-form button {
   font-family: "Source+Sans+Pro", sans-serif;
   text-transform: uppercase;
   outline: 0;
@@ -82,19 +82,19 @@ background-image: url('../images/logo_RGB_colur.png') no-repeat 0 0;
   transition: all 0.3 ease;
   cursor: pointer;
 }
-.form button:hover,.form button:active,.form button:focus {
+.login-form button:hover,.form button:active,.form button:focus {
   background: rgba(54,169,224,0.3);
 }
-.form .message {
+.login-form .message {
   margin: 15px 0 0;
   color: #27aae2;
   font-size: 12px;
 }
-.form .message a {
+.login-form .message a {
   color: #27aae2;
   text-decoration: none;
 }
-.form .register-form {
+.login-form .register-form {
   display: none;
 }
 .container {

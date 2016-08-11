@@ -1,4 +1,4 @@
-// Login Controller
+// Login Controller Login credentials
 var app = angular.module('LoginController', [] );
 .app.controller( 'LoginController', function ($scope, $rootScope, AUTH_EVENTS, AuthService) {
   $scope.credentials = {
@@ -15,7 +15,7 @@ var app = angular.module('LoginController', [] );
   };
 })
 
-// Session changes
+// Session events
 .constant('AUTH_EVENTS', {
   loginSuccess: 'auth-login-success',
   loginFailed: 'auth-login-failed',
