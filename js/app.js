@@ -3,20 +3,29 @@ function authInterceptor(API, auth) {
   return {
     // automatically attach Authorization header
     request: function(config) {
-      return config;
-    },
+      var token = auth.getToken();
+        if(config.url.indexOf(API) === 0 && token) {
+        config.headers.Authorization = 'Bearer ' + token;
+  }
+
+  return config;
+},
 
     // If a token was sent back, save it
     response: function(res) {
-      return res;
-    },
+    if(res.config.url.indexOf(API) === 0 && res.data.token) {
+    auth.saveToken(res.data.token);
+  }
+
+  return res;
+},
   }
 }
 
 function authService($window) {
   var self = this;
 
-  // JWT methods
+  // JWT Json Web Token methods
   self.parseJwt = function(token) {
   var base64Url = token.split('.')[1];
   var base64 = base64Url.replace('-', '+').replace('_', '/');
