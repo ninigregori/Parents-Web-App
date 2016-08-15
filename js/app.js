@@ -8,6 +8,9 @@ function authInterceptor(API, auth) {
 
     // If a token was sent back, save it
     response: function(res) {
+  if(res.config.url.indexOf(API) === 0 && res.data.token) {
+    auth.saveToken(res.data.token);
+  }
       return res;
     },
   }
@@ -64,10 +67,6 @@ function userService($http, API, auth) {
   return $http.post(API + '/auth/login', {
       username: username,
       password: password
-    }).then(function(res) {
-      auth.saveToken( res.data.token )
-
-      return res
     })
 };
 }
