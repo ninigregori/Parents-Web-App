@@ -3,42 +3,33 @@ function authInterceptor(API, auth) {
   return {
     // automatically attach Authorization header
     request: function(config) {
-      var token = auth.getToken();
-        if(config.url.indexOf(API) === 0 && token) {
-        config.headers.Authorization = 'Bearer ' + token;
-  }
-
-  return config;
-},
+      return config;
+    },
 
     // If a token was sent back, save it
     response: function(res) {
-    if(res.config.url.indexOf(API) === 0 && res.data.token) {
-    auth.saveToken(res.data.token);
-  }
-
-  return res;
-},
+      return res;
+    },
   }
 }
 
 function authService($window) {
   var self = this;
 
-  // JWT Json Web Token methods
+  // Add JWT methods here
   self.parseJwt = function(token) {
   var base64Url = token.split('.')[1];
   var base64 = base64Url.replace('-', '+').replace('_', '/');
   return JSON.parse($window.atob(base64));
 }
-//Token storage
+  // Save toke in local storage
 self.saveToken = function(token) {
   $window.localStorage['jwtToken'] = token;
 }
+
 self.getToken = function() {
   return $window.localStorage['jwtToken'];
 }
-// Check if USER LOGGED IN OR NOT >> how can I  stay logged in?
 self.isAuthed = function() {
   var token = self.getToken();
   if(token) {
@@ -48,15 +39,11 @@ self.isAuthed = function() {
     return false;
   }
 }
+  self.logout = function() {
+  $window.localStorage.removeItem('jwtToken');
 }
-self.isAuthed = function() {
-  var token = self.getToken();
-  if(token) {
-    var params = self.parseJwt(token);
-    return Math.round(new Date().getTime() / 1000) <= params.exp;
-  } else {
-    return false;
-  }
+
+// console.log('am I authed?', self.isAuthed())
 }
 
 function userService($http, API, auth) {
@@ -65,18 +52,22 @@ function userService($http, API, auth) {
     return $http.get(API + '/auth/quote')
   }
 
-  // authentication Registration
+  // add authentication methods here
   self.register = function(username, password) {
-  return $http.post(API + '/auth/register', {
-      username: username,
-      password: password
-    })
-}
-// authentication Login
-self.login = function(username, password) {
+    return $http.post(API + '/auth/register', {
+        username: username,
+        password: password
+      })
+  }
+
+  self.login = function(username, password) {
   return $http.post(API + '/auth/login', {
       username: username,
       password: password
+    }).then(function(res) {
+      auth.saveToken( res.data.token )
+
+      return res
     })
 };
 }
@@ -103,6 +94,7 @@ function MainCtrl(user, auth) {
     user.getQuote()
       .then(handleRequest, handleRequest)
   }
+
   self.logout = function() {
     auth.logout && auth.logout()
   }
@@ -121,3 +113,10 @@ angular.module('app', [])
 })
 .controller('Main', MainCtrl)
 })();
+
+
+// Verify user in data base
+// http://ec2-54-88-245-245.compute-1.amazonaws.com/playbrush/api/v1.0/authenticate/id/<ob_id>
+
+// send information back to the server
+// http://ec2-54-88-245-245.compute-1.amazonaws.com/playbrush/api/v1.0/authenticate/update/id/<unique>/first_name/<first_name>/last_name/<last_name>/email/<email>/password/<password>/
