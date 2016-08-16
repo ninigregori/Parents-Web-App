@@ -6,8 +6,17 @@
 
 var app = angular.module('app',[]);
 
-app.controller('Main', function() {
+app.controller('Main', function($scope) {
   console.log('hi');
+  var main = this;
+  main.info = function() {
+    var user = {
+      fname: main.fname,
+      lname: main.lname,
+      email: main.email
+    }
+    console.log(user);
+  }
 
 
 
