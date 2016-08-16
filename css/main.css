@@ -28,12 +28,12 @@ Author: Your Name
 /******************************************
 /* LAYOUT
 /*******************************************/
- @media only screen and (max-width: 480px){
+/* @media only screen and (max-width: 480px){
   .body {
 	max-width: 960px;
 	margin: 0 auto;
   }
-  @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,200,700,900);
+  @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,200,700,900);*/
 
 h1 {
   color: #27aae2;
@@ -57,7 +57,7 @@ background-image: url('../images/logo_RGB_colur.png') no-repeat 0 0;
   padding: 45px;
   text-align: center;
 }
-.form input {
+input {
   font-family: "Source+Sans+Pro", sans-serif;
   outline: 0;
   background: rgba(54,169,224,0.07);
@@ -68,12 +68,13 @@ background-image: url('../images/logo_RGB_colur.png') no-repeat 0 0;
   box-sizing: border-box;
   font-size: 14px;
 }
-.form button {
+button {
   font-family: "Source+Sans+Pro", sans-serif;
+  font-weight: lighter;
   text-transform: uppercase;
   outline: 0;
   background: #27aae2;
-  width: 100%;
+  width: 40%;
   border: 0;
   padding: 15px;
   margin-top: 10px;
@@ -83,10 +84,10 @@ background-image: url('../images/logo_RGB_colur.png') no-repeat 0 0;
   transition: all 0.3 ease;
   cursor: pointer;
 }
-.form button:hover,.form button:active,.form button:focus {
+button:hover,.form button:active,.form button:focus {
   background: rgba(54,169,224,0.3);
 }
-.form .message {
+message {
   margin: 15px 0 0;
   color: #27aae2;
   font-size: 12px;
@@ -132,7 +133,7 @@ background-image: url('../images/logo_RGB_colur.png') no-repeat 0 0;
   color: #EF3B3A;
 }
 body {
-  background: rgba(54,169,224,0.2);
+  background: rgba(54,169,224,0.1);
 }
 
 

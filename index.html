@@ -9,31 +9,29 @@
 
 
 		<div class="logo" href="http://playbrush.com"></div>
-		<link rel="stylesheet" href="css/normalize.css">
-		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="./css/normalize.css">
+		<link rel="stylesheet" href="./css/main.css">
 
-		<html>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.5/angular.min.js"></script>
+		<script src="./js/app.js"></script>
+
 		    <head>
-		    <title>Parents Web App</title>
-		    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.5/angular.min.js"></script>
-		        <script src="./js/app.js"></script>
+		    <title>Playbrush</title>
+
 		  </head>
 		    <body ng-app="app" ng-controller="Main as main">
 		    <h1>Parents Web App</h1>
 
-		    <input type="text" ng-model="main.username" placeholder="username"><br>
-		    <input type="password" ng-model="main.password" placeholder="password"><br>
+		    <input type="text" ng-model="main.fname" placeholder="First Name"><br>
+				<input type="text" ng-model="main.lname" placeholder="Last Name"><br>
+		    <input type="text" ng-model="main.email" ng-pattern="regex" placeholder="Email"><br>
 		    <br>
 
 		    <button ng-click="main.register()">Register</button>
-		    <button ng-click="main.login()" ng-hide="main.isAuthed()">Login</button>
-		    <button ng-click="main.logout()" ng-show="main.isAuthed()">Logout</button>
 
-		    <button ng-click="main.getQuote()">get quote</button>
 		    <br><br>
 		    {{main.message}}
 
 		    <br><br><br>
-		    <a href="https://twitter.com/IAmMattGreen">shameless plug</a>
 		    </body>
 		</html>

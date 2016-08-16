@@ -1,3 +1,10 @@
+// When click on link (which will be send via text message) open Register Screen
+//localhost.../index/abcd
+//User puts in data >first name , >last name, >email address
+//send token/link back to server including <firstname>, <lastname>,<email>+<abcd>
+//save user token
+
+
 ;(function(){
 function authInterceptor(API, auth) {
   return {
@@ -5,12 +12,8 @@ function authInterceptor(API, auth) {
     request: function(config) {
       return config;
     },
-
     // If a token was sent back, save it
     response: function(res) {
-  if(res.config.url.indexOf(API) === 0 && res.data.token) {
-    auth.saveToken(res.data.token);
-  }
       return res;
     },
   }
@@ -20,58 +23,21 @@ function authService($window) {
   var self = this;
 
   // Add JWT methods here
-  self.parseJwt = function(token) {
-  var base64Url = token.split('.')[1];
-  var base64 = base64Url.replace('-', '+').replace('_', '/');
-  return JSON.parse($window.atob(base64));
-}
-  // Save toke in local storage
-self.saveToken = function(token) {
-  $window.localStorage['jwtToken'] = token;
 }
 
-self.getToken = function() {
-  return $window.localStorage['jwtToken'];
-}
-self.isAuthed = function() {
-  var token = self.getToken();
-  if(token) {
-    var params = self.parseJwt(token);
-    return Math.round(new Date().getTime() / 1000) <= params.exp;
-  } else {
-    return false;
-  }
-}
-  self.logout = function() {
-  $window.localStorage.removeItem('jwtToken');
-}
-
-// console.log('am I authed?', self.isAuthed())
-}
-
+//User puts in data >first name , >last name, >email address
 function userService($http, API, auth) {
   var self = this;
-  self.getQuote = function() {
-    return $http.get(API + '/auth/quote')
-  }
-
   // add authentication methods here
-  self.register = function(username, password) {
+  self.register = function(fname, lname, email) {
     return $http.post(API + '/auth/register', {
-        username: username,
-        password: password
+           fname: fname,
+           lname: lname,
+           email: email
       })
   }
-
-  self.login = function(username, password) {
-  return $http.post(API + '/auth/login', {
-      username: username,
-      password: password
-    })
-};
 }
-
-// We won't touch anything in here
+// Main Controller
 function MainCtrl(user, auth) {
   var self = this;
 
@@ -81,22 +47,11 @@ function MainCtrl(user, auth) {
     self.message = res.data.message;
   }
 
-  self.login = function() {
-    user.login(self.username, self.password)
-      .then(handleRequest, handleRequest)
-  }
   self.register = function() {
-    user.register(self.username, self.password)
-      .then(handleRequest, handleRequest)
-  }
-  self.getQuote = function() {
-    user.getQuote()
-      .then(handleRequest, handleRequest)
+    user.register(self.fname, self.lname, self.email)
+      .then(handleRequest, handleRequest, handleRequest)
   }
 
-  self.logout = function() {
-    auth.logout && auth.logout()
-  }
   self.isAuthed = function() {
     return auth.isAuthed ? auth.isAuthed() : false
   }
@@ -114,8 +69,44 @@ angular.module('app', [])
 })();
 
 
+
+
+//send token/link back to server including <firstname>, <lastname>,<email>+<abcd>
+
+var postApp = angular.module('postApp', []);
+// Controller function and passing $http service and $scope var.
+postApp.controller('postController', function($scope, $http) {
+  // create a blank object to handle form data.
+    $scope.user = {};
+  // calling our submit function.
+    $scope.submitForm = function() {
+    // Posting data to php file
+    $http({
+      method  : 'POST',
+      url     : 'clone.php',
+      data    : $scope.user, //forms user object
+      headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+     })
+      .success(function(data) {
+        if (data.errors) {
+          // Showing errors.
+          $scope.errorName = data.errors.name;
+          $scope.errorUserName = data.errors.username;
+          $scope.errorEmail = data.errors.email;
+        } else {
+          $scope.message = data.message;
+        }
+      });
+    };
+});
+
+
 // Verify user in data base
 // http://ec2-54-88-245-245.compute-1.amazonaws.com/playbrush/api/v1.0/authenticate/id/<ob_id>
 
 // send information back to the server
 // http://ec2-54-88-245-245.compute-1.amazonaws.com/playbrush/api/v1.0/authenticate/update/id/<unique>/first_name/<first_name>/last_name/<last_name>/email/<email>/password/<password>/
+
+
+
+//http://ec2-54-88-245-245.compute-1.amazonaws.com/playbrush/api/v1.0/authenticate/update/id/abcde/first_name/Tolulope/last_name/Ogunsina/email/tolu@playbrush.io/password/pass/
