@@ -1,13 +1,8 @@
-// When click on link (which will be send via text message) open Register Screen
-//localhost.../index/abcd
-//User puts in data >first name , >last name, >email address
-//send token/link back to server including <firstname>, <lastname>,<email>+<abcd>
-//save user token
-
+  // Link received via text message + special id - login screen opens when click on link
 var app = angular.module('app',[]);
 
 app.controller('Main', function( $scope, $http ) {
-  console.log('hi');
+//  console.log('hi');
   var main = this;
   main.info = function() {
     var user = {
@@ -17,25 +12,23 @@ app.controller('Main', function( $scope, $http ) {
     }
     console.log(user);
   }
+//cache user id from url
 
-  // Link receied via text message
   // http://ec2-54-88-245-245.compute-1.amazonaws.com/playbrush/api/v1.0/authenticate/id/<ob_id>
-    //create a blank object to handle form data.
-       $scope.user = {};
-     // calling our submit function.
-       $scope.submitForm = function() {
-       // Posting data to php file
-       $http({
+    //blank object to handle form data
+    $scope.user = {};
+     // calling our submit function
+    $scope.submitForm = function( $http ) {
+       // Adding data to api and send itback to server
+      return $http.post({
          method  : 'POST',
-         url     : 'clone.php', //http://ec2-54-88-245-245.compute-1.amazonaws.com/playbrush/api/v1.0/authenticate/update/id/<unique>/+'fname'+'lname'+'email'
-        // data    : $scope.user, //forms user object
-         headers : {'Content-Type': 'application/x-www-form-urlencoded'}
-       });
-        }
+         url     : 'http://ec2-54-88-245-245.compute-1.amazonaws.com/playbrush/api/v1.0/authenticate/update/' + 'id' + 'fname' + 'lname' + 'email',
+         data    : $scope.user, //forms user object
+         //headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+        });
+      }
 });
 
-
-//
 
 //       .success(function(data) {
 //         if (data.errors) {
