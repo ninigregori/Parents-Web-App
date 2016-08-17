@@ -26,8 +26,11 @@ app.controller('Main', function( $scope, $http ) {
          url     : 'http://ec2-54-152-102-95.compute-1.amazonaws.com/playbrush/api/v1.0/add_user_to_profile' + 'fname' + 'lname' + 'email',
          data    : $scope.user,
          headers : {'JSON.stringify': 'playbrush_id: pb_id, fname: main.fname, lname: main.lname, email: main.email'}
-        });
 
+        });
+        success(function(data, status, header, config) {
+                        console.log(user);
+                      })
       }
 });
 
