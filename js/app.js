@@ -17,17 +17,20 @@ app.controller('Main', function( $scope, $http ) {
 //cache user id from url
 
     //blank object to handle form data
-    $scope.user = {};
+
      // calling our submit function
-    $scope.submitForm = function() {
-       // Adding data to api and send itback to server
+  function submitForm($http) {
+      this.postData = function(user) {
+
       return $http.post({
          method  : 'POST',
          url     : 'http://ec2-54-152-102-95.compute-1.amazonaws.com/playbrush/api/v1.0/add_user_to_profile' + 'fname' + 'lname' + 'email',
          data    : $scope.user,
          headers : {'JSON.stringify': 'playbrush_id: pb_id, fname: main.fname, lname: main.lname, email: main.email'}
-        });
-         console.log(submitForm);
+},
+     });
+     console.log(user);
+
       }
 });
 

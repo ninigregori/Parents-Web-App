@@ -21,7 +21,7 @@
 		  </head>
 		    <body ng-controller="Main as main">
 		    <h1>Parents Web App</h1>
-			<form class="form" ng-submit="main.info()" ng-click="$scope.submitForm()">
+			<form class="form" ng-submit="main.info()" ng-click="submitForm()">
 		    <input type="text" ng-model="main.fname" placeholder="First Name"><br>
 				<input type="text" ng-model="main.lname" placeholder="Last Name"><br>
 		    <input type="text" ng-model="main.email" ng-pattern="regex" placeholder="Email"><br>
