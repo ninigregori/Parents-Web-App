@@ -1,12 +1,16 @@
-  // Link received via text message + SPECIAL ID - login screen opens when click on link
-  // http://ec2-54-88-245-245.compute-1.amazonaws.com/playbrush/api/v1.0/authenticate/id/<ob_id>
+// Link received via text message + SPECIAL ID - login screen opens when click on link
+// http://ec2-54-88-245-245.compute-1.amazonaws.com/playbrush/api/v1.0/authenticate/id/<ob_id>
 
 var app = angular.module('app',[]);
 
 app.controller('Main', function( $scope, $http ) {
-//  console.log('hi');
+  //  console.log('hi');
   var main = this;
   main.info = function() {
+    if ( main.fname === '' || typeof( main.fname ) === 'undefined' ) {
+      console.log('escape');
+      return;
+    }
     var user = {
       fname: main.fname,
       lname: main.lname,
@@ -14,32 +18,13 @@ app.controller('Main', function( $scope, $http ) {
     }
     console.log(user);
   }
-//cache user id from url
+  // $http.post({
+  //  method  : 'POST',
+  //  url     : 'http://ec2-54-152-102-95.compute-1.amazonaws.com/playbrush/api/v1.0/add_user_to_profile',
+  //  data    : user,
+  //  dataType: 'jsonp',
 
-    //blank object to handle form data
+  //  headers : {'JSON.stringify': 'playbrush_id: pb_id, fname: main.fname, lname: main.lname, email: main.email'}
+  // });
 
-     // calling our submit function
-  function submitForm($http) {
-      this.postData = function(user) {
-
-      return $http.post({
-         method  : 'POST',
-         url     : 'http://ec2-54-152-102-95.compute-1.amazonaws.com/playbrush/api/v1.0/add_user_to_profile' + 'fname' + 'lname' + 'email',
-         data    : $scope.user,
-         headers : {'JSON.stringify': 'playbrush_id: pb_id, fname: main.fname, lname: main.lname, email: main.email'}
-},
-     });
-     console.log(user);
-
-      }
 });
-
-// Verify user in data base
-// http://ec2-54-88-245-245.compute-1.amazonaws.com/playbrush/api/v1.0/authenticate/id/<ob_id>
-
-// send information back to the server
-// http://ec2-54-88-245-245.compute-1.amazonaws.com/playbrush/api/v1.0/authenticate/update/id/<unique>/first_name/<first_name>/last_name/<last_name>/email/<email>/password/<password>/
-
-
-
-//http://ec2-54-88-245-245.compute-1.amazonaws.com/playbrush/api/v1.0/authenticate/update/id/abcde/first_name/Tolulope/last_name/Ogunsina/email/tolu@playbrush.io/password/pass/
