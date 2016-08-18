@@ -8,12 +8,22 @@ app.controller('Main', function( $scope, $http ) {
   var main = this;
   var pathparts = location.pathname.split('/');
   var id = pathparts[pathparts.length-1];
+  var user;
+
   main.info = function() {
     if ( main.fname === '' || typeof( main.fname ) === 'undefined' ) {
+    //  console.log('escape');
+      return;
+    }
+    if ( main.lname === '' || typeof( main.lname ) === 'undefined' ) {
+      //console.log('escape1');
+      return;
+    }
+    if ( main.email === '' || typeof( main.email ) === 'undefined' ) {
       console.log('escape');
       return;
     }
-    var user = {
+    user = {
       id: id,
       first_name: main.fname,
       last_name: main.lname,
@@ -27,8 +37,7 @@ app.controller('Main', function( $scope, $http ) {
    url     : 'http://ec2-54-88-245-245.compute-1.amazonaws.com/playbrush/api/v1.0/add_user_to_profile',
    data    : user,
    dataType: 'jsonp',
-
-   headers : {'JSON.stringify': 'playbrush_id: pb_id, fname: main.fname, lname: main.lname, email: main.email'}
+   //headers : {'JSON.stringify': 'playbrush_id: pb_id, fname: main.fname, lname: main.lname, email: main.email'}
   });
 
 });
