@@ -16,20 +16,22 @@ app.controller('Main', function( $scope, $http ) {
       return;
     }
     if ( main.lname === '' || typeof( main.lname ) === 'undefined' ) {
-      //console.log('escape1');
+      //console.log('escape');
       return;
     }
     if ( main.email === '' || typeof( main.email ) === 'undefined' ) {
-      console.log('escape');
+    //  console.log('escape');
       return;
     }
     user = {
       id: id,
       first_name: main.fname,
       last_name: main.lname,
-      email: main.email
+      email: main.email,
+      password: main.password,
+      phone: main.phone
     }
-    console.log(user);
+  //  console.log(user);
   }
 
   $http.post({
