@@ -35,12 +35,20 @@ Author: Your Name
   }
   @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,200,700,900);*/
 
+/*  .logo {
+  background-image: url('../images/logo_RGB_colur.png') no-repeat 0 0;
+  } */
+
 h1 {
   color: #27aae2;
+  text-align: center;
 }
 
 .logo {
-background-image: url('../images/logo_RGB_colur.png') no-repeat 0 0;
+width: 15%;
+display: block;
+align: center;
+margin:auto;
 }
 
 .login-page {
